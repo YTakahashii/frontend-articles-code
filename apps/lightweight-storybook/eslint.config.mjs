@@ -24,7 +24,7 @@ export default tseslint.config(
       'eslint.config.mjs',
       'next.config.mjs',
       '.env.example',
-      '.prettierrc.js',
+      '.prettierrc.mjs',
       '.storybook/*',
       'vite.config.ts',
       'postcss.config.cjs',
