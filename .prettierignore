@@ -1,0 +1,15 @@
+out/
+.next/
+.vscode/
+public/
+storybook-static/
+package-lock.json
+.env.example
+.github/
+.gitignore
+.husky
+.node-version
+.prettierignore
+.prettierrc.js
+.storybook/
+.tool-versions
