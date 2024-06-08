@@ -1,0 +1,10 @@
+{
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.options": {
+    "overrideConfigFile": "eslint.config.mjs"
+  },
+  "eslint.workingDirectories": [
+    "./apps/lightweight-storybook"
+  ],
+  "eslint.nodePath": "node_modules",
+}

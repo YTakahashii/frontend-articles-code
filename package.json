@@ -1,7 +1,7 @@
 {
   "name": "frontend-articles-code",
   "version": "1.0.0",
-  "description": "記述記事のサンプルコードを管理するリポジトリです。",
+  "description": "技術記事のサンプルコードを管理するリポジトリです。",
   "main": "index.js",
   "scripts": {
     "lightweight-storybook": "pnpm -F \"lightweight-storybook\""
