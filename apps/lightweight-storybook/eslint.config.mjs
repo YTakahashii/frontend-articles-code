@@ -27,6 +27,7 @@ export default tseslint.config(
       '.prettierrc.js',
       '.storybook/*',
       'vite.config.ts',
+      'postcss.config.cjs',
     ],
   },
   eslint.configs.recommended,
