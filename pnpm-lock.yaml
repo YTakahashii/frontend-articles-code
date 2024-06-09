@@ -10,15 +10,30 @@ importers:
 
   apps/lightweight-storybook:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^3.6.0
+        version: 3.6.0(react-hook-form@7.51.5(react@18.3.1))
       '@mantine/core':
         specifier: ^7.10.1
         version: 7.10.1(@mantine/hooks@7.10.1(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@mantine/hooks':
+        specifier: ^7.10.1
+        version: 7.10.1(react@18.3.1)
+      '@tanstack/react-query':
+        specifier: ^5.40.1
+        version: 5.40.1(react@18.3.1)
       react:
         specifier: ^18.2.0
         version: 18.3.1
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
+      react-hook-form:
+        specifier: ^7.51.5
+        version: 7.51.5(react@18.3.1)
+      valibot:
+        specifier: ^0.31.0
+        version: 0.31.0
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^1.5.0
@@ -951,6 +966,11 @@ packages:
   '@floating-ui/utils@0.2.2':
     resolution: {integrity: sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==}
 
+  '@hookform/resolvers@3.6.0':
+    resolution: {integrity: sha512-UBcpyOX3+RR+dNnqBd0lchXpoL8p4xC21XP8H6Meb8uve5Br1GCnmg0PcBoKKqPKgGu9GHQ/oygcmPrQhetwqw==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
@@ -1491,6 +1511,14 @@ packages:
 
   '@storybook/types@8.1.6':
     resolution: {integrity: sha512-cWpS9+x1pxCO39spR8QmumMK2ub2p5cvMtrRvWaIjBFPbCwm2CvjBXFWIra2veBCZTxUKJ9VWxvi7pzRHjN/nw==}
+
+  '@tanstack/query-core@5.40.0':
+    resolution: {integrity: sha512-eD8K8jsOIq0Z5u/QbvOmfvKKE/XC39jA7yv4hgpl/1SRiU+J8QCIwgM/mEHuunQsL87dcvnHqSVLmf9pD4CiaA==}
+
+  '@tanstack/react-query@5.40.1':
+    resolution: {integrity: sha512-gOcmu+gpFd2taHrrgMM9RemLYYEDYfsCqszxCC0xtx+csDa4R8t7Hr7SfWXQP13S2sF+mOxySo/+FNXJFYBqcA==}
+    peerDependencies:
+      react: ^18.0.0
 
   '@testing-library/dom@9.3.4':
     resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
@@ -3609,6 +3637,12 @@ packages:
       react: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1 || ^18.0.0
       react-dom: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1 || ^18.0.0
 
+  react-hook-form@7.51.5:
+    resolution: {integrity: sha512-J2ILT5gWx1XUIJRETiA7M19iXHlG74+6O3KApzvqB/w8S5NQR7AbU8HVZrMALdmDgWpRPYiZJl0zx8Z4L2mP6Q==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -4282,6 +4316,9 @@ packages:
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
+
+  valibot@0.31.0:
+    resolution: {integrity: sha512-bleS8aVFpRGTUgbMoXzsRJhpxJGiZ3MG1nuNSORuDvio+sI1EyT1+lQHg+77Pfnlxz+25Uj5HiwdaklcDcYdiQ==}
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -5396,6 +5433,10 @@ snapshots:
 
   '@floating-ui/utils@0.2.2': {}
 
+  '@hookform/resolvers@3.6.0(react-hook-form@7.51.5(react@18.3.1))':
+    dependencies:
+      react-hook-form: 7.51.5(react@18.3.1)
+
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -6339,6 +6380,13 @@ snapshots:
       '@storybook/channels': 8.1.6
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
+
+  '@tanstack/query-core@5.40.0': {}
+
+  '@tanstack/react-query@5.40.1(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.40.0
+      react: 18.3.1
 
   '@testing-library/dom@9.3.4':
     dependencies:
@@ -8711,6 +8759,10 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-is: 18.1.0
 
+  react-hook-form@7.51.5(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+
   react-is@16.13.1: {}
 
   react-is@17.0.2: {}
@@ -9454,6 +9506,8 @@ snapshots:
   utils-merge@1.0.1: {}
 
   uuid@9.0.1: {}
+
+  valibot@0.31.0: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
