@@ -24,7 +24,8 @@ export const userSettingsForm = v.object({
     }),
     v.check(({ year, month, day }) => {
       const isoDate = v.pipe(v.string(), v.isoDate());
-      const date = `${year}-${month}-${day}`;
+      const date = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      console.log(date);
       const isIsoDate = v.safeParse(isoDate, date);
       return isIsoDate.success;
     }, '正しい日付を入力してください。'),
