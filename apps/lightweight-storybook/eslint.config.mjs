@@ -30,7 +30,7 @@ export default tseslint.config(
       '.prettierrc.mjs',
       '.storybook/*',
       'vite.config.ts',
-      'postcss.config.cjs',
+      'postcss.config.js',
       'storybook-static/*',
       'tailwind.config.js',
     ],
