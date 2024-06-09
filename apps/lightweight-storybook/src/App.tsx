@@ -1,7 +1,7 @@
 import './styles.css';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './lib/react-query';
-import { Button } from './components/ui/button';
+import { Button } from './components/ui/Button';
 
 function App() {
   return (
