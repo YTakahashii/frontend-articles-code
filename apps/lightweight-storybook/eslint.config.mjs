@@ -41,7 +41,7 @@ export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   {
     rules: {
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      '@typescript-eslint/consistent-type-definitions': ['off'],
       '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/no-misused-promises': [
         'error',
