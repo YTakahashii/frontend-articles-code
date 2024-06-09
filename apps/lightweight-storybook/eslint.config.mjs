@@ -63,6 +63,7 @@ export default tseslint.config(
     rules: {
       ...reactPlugin.configs.recommended.rules,
       ...reactPlugin.configs['jsx-runtime'].rules,
+      'react/prop-types': 'off',
     },
     settings: {
       react: {

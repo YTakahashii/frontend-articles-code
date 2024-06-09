@@ -6,7 +6,13 @@ import { Button } from './components/ui/button';
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Button>Click me</Button>
+      <Button
+        onClick={() => {
+          alert('Hello, world!');
+        }}
+      >
+        Click me
+      </Button>
     </QueryClientProvider>
   );
 }
