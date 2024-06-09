@@ -3,6 +3,9 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import reactPlugin from 'eslint-plugin-react';
 import hooksPlugin from 'eslint-plugin-react-hooks';
+import { FlatCompat } from '@eslint/eslintrc';
+
+const compat = new FlatCompat();
 
 export default tseslint.config(
   {
@@ -28,6 +31,7 @@ export default tseslint.config(
       '.storybook/*',
       'vite.config.ts',
       'postcss.config.cjs',
+      'storybook-static/*',
     ],
   },
   eslint.configs.recommended,
@@ -71,4 +75,8 @@ export default tseslint.config(
     },
     rules: hooksPlugin.configs.recommended.rules,
   },
+  ...compat.config({
+    extends: ['plugin:storybook/recommended'],
+    ignorePatterns: ['!.stories.tsx'],
+  }),
 );
