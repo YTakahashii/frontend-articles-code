@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
 import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
+import { useDateSelectOptions } from '@/hooks/useDateSelectOptions';
 
 export type UserSettingsFormProps = {
   initialValues?: UserSettingsForm;
@@ -21,13 +22,13 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
     values: initialValues ?? userSettingsFormDefault,
     resolver: valibotResolver(userSettingsForm),
   });
+  const { yearOptions, monthOptions, dayOptions } = useDateSelectOptions();
 
-  console.log(form.formState.errors);
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((values) => {
-          void onValid({ values, updateUserSettings });
+          return onValid({ values, updateUserSettings });
         })}
       >
         <div className="py-4 space-y-2">
@@ -50,7 +51,7 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
               name="givenName"
               render={({ field }) => (
                 <FormItem className="flex-1">
-                  <FormLabel>姓</FormLabel>
+                  <FormLabel>名</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -92,9 +93,11 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="2024">2024年</SelectItem>
-                            <SelectItem value="2023">2023年</SelectItem>
-                            <SelectItem value="2022">2022年</SelectItem>
+                            {yearOptions.map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -113,9 +116,11 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="1">1月</SelectItem>
-                            <SelectItem value="m@google.com">m@google.com</SelectItem>
-                            <SelectItem value="m@support.com">m@support.com</SelectItem>
+                            {monthOptions.map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -134,9 +139,11 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="1">1日</SelectItem>
-                            <SelectItem value="m@google.com">m@google.com</SelectItem>
-                            <SelectItem value="m@support.com">m@support.com</SelectItem>
+                            {dayOptions.map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -150,7 +157,9 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
           />
         </div>
         <div className="flex flex-row-reverse">
-          <Button type="submit">保存</Button>
+          <Button type="submit" isLoading={form.formState.isSubmitting}>
+            保存
+          </Button>
         </div>
       </form>
     </Form>
