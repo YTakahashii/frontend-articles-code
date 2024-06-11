@@ -11,7 +11,7 @@ import { useDisclosure } from '@/hooks/useDisclosure';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/Alert';
 import { AlertCircle } from 'lucide-react';
 
-type UserSettingsFormModalProps = {
+export type UserSettingsFormModalProps = {
   invokeButtonProps?: ButtonProps;
   userSettingsForm?:
     | {

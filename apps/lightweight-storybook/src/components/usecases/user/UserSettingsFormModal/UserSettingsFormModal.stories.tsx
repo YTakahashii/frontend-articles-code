@@ -3,31 +3,31 @@ import { userEvent, within } from '@storybook/test';
 import { UserSettingsFormModal } from './UserSettingsFormModal';
 import { UserSettingsForm } from './UserSettingsForm/UserSettingsForm';
 
-const userSettingsForm = {
-  type: 'presenter',
-  props: {
-    updateUserSettings: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      return { success: true };
-    },
-  },
-  Component: UserSettingsForm,
-} as const;
-
-export default {
+const meta = {
   title: 'useCases/user/UserSettingsFormModal',
   component: UserSettingsFormModal,
   args: {
-    userSettingsForm,
+    userSettingsForm: {
+      type: 'presenter',
+      props: {
+        updateUserSettings: async () => {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          return { success: true };
+        },
+      },
+      Component: UserSettingsForm,
+    },
   },
   parameters: {
     docs: {
       description: {
-        component: 'Suspense境界を持つ場合におけるContainer/Presentationの実践例です。',
+        component: 'Suspense境界を持つContainer/Presentationの実践例です。',
       },
     },
   },
 } satisfies Meta<typeof UserSettingsFormModal>;
+
+export default meta;
 
 type Story = StoryObj<typeof UserSettingsFormModal>;
 
@@ -46,7 +46,7 @@ const playFillName: Story['play'] = async ({ canvasElement }) => {
 const playFillEmail: Story['play'] = async ({ canvasElement }) => {
   const root = within(canvasElement.parentElement!);
   const dialog = within(root.getByRole('dialog', { name: 'ユーザ設定' }));
-  await userEvent.type(dialog.getByLabelText('メールアドレス'), 'user1@example.com');
+  await userEvent.type(dialog.getByLabelText('メールアドレス'), 'taro.yamada@example.com');
 };
 
 const playFillBirthday: Story['play'] = async ({ canvasElement }) => {
@@ -92,12 +92,12 @@ const playSubmit: Story['play'] = async ({ canvasElement }) => {
 };
 
 export const Default: Story = {
-  storyName: '初期表示',
+  name: '初期表示',
   play: playOpen,
 };
 
 export const Success: Story = {
-  storyName: '成功',
+  name: '成功',
   play: async (args) => {
     await playOpen(args);
     await playFillAll(args);
@@ -106,12 +106,12 @@ export const Success: Story = {
 };
 
 export const Failed: Story = {
-  storyName: '失敗',
+  name: '失敗',
   args: {
     userSettingsForm: {
-      ...userSettingsForm,
+      ...meta.args.userSettingsForm,
       props: {
-        ...userSettingsForm.props,
+        ...meta.args.userSettingsForm.props,
         updateUserSettings: async () => {
           await new Promise((resolve) => setTimeout(resolve, 500));
           return { success: false, reason: '処理がタイムアウトしました。' };
@@ -127,12 +127,14 @@ export const Failed: Story = {
 };
 
 export const Loading: Story = {
-  storyName: 'ローディング',
+  name: 'ローディング',
   args: {
     userSettingsForm: {
-      ...userSettingsForm,
+      ...meta.args.userSettingsForm,
       Component: () => {
-        throw new Promise((resolve) => setTimeout(resolve, 500));
+        throw new Promise((resolve) => {
+          resolve(true);
+        });
       },
     },
   },
@@ -140,7 +142,7 @@ export const Loading: Story = {
 };
 
 export const EmptyValidation: Story = {
-  storyName: '未入力のバリデーションエラー',
+  name: '未入力のバリデーションエラー',
   play: async (args) => {
     await playOpen(args);
     await playSubmit(args);
@@ -148,7 +150,7 @@ export const EmptyValidation: Story = {
 };
 
 export const InvalidDateValidation: Story = {
-  storyName: '誕生日に不正な日付を入力したときのバリデーションエラー',
+  name: '誕生日に不正な日付を入力したときのバリデーションエラー',
   play: async (args) => {
     await playOpen(args);
     await playFillName(args);

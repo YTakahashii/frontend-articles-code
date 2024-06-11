@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { UserSettingsFormModal as Presenter } from './UserSettingsFormModal';
-import { UserSettingsFormModalContext } from './UserSettingsFormModal.context';
+import { UserSettingsFormModalContainerContext } from './UserSettingsFormModal.container.context';
 
 type UserSettingsFormModalProps = {
   userId: string;
@@ -8,8 +8,8 @@ type UserSettingsFormModalProps = {
 
 export function UserSettingsFormModal({ userId }: UserSettingsFormModalProps) {
   return (
-    <UserSettingsFormModalContext.Provider value={useMemo(() => ({ userId }), [userId])}>
+    <UserSettingsFormModalContainerContext.Provider value={useMemo(() => ({ userId }), [userId])}>
       <Presenter />
-    </UserSettingsFormModalContext.Provider>
+    </UserSettingsFormModalContainerContext.Provider>
   );
 }
