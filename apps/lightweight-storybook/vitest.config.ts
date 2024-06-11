@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
   ],
   test: {
-    environment: 'happy-dom',
+    environment: 'jsdom',
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
     coverage: {

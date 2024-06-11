@@ -1,5 +1,5 @@
 import { type StoryObj, type Meta } from '@storybook/react';
-import { userEvent, within } from '@storybook/test';
+import { userEvent, within, fireEvent } from '@storybook/test';
 import { UserSettingsFormModal } from './UserSettingsFormModal';
 import { UserSettingsForm } from './UserSettingsForm/UserSettingsForm';
 
@@ -33,7 +33,7 @@ type Story = StoryObj<typeof UserSettingsFormModal>;
 
 const playOpen: Story['play'] = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByRole('button', { name: 'ユーザ設定' }));
+  await userEvent.click(canvas.getByRole('button', { name: '設定する' }));
 };
 
 const playFillName: Story['play'] = async ({ canvasElement }) => {
@@ -88,7 +88,7 @@ const playFillAll: Story['play'] = async (args) => {
 const playSubmit: Story['play'] = async ({ canvasElement }) => {
   const root = within(canvasElement.parentElement!);
   const dialog = within(root.getByRole('dialog', { name: 'ユーザ設定' }));
-  await userEvent.click(dialog.getByRole('button', { name: '保存' }));
+  await fireEvent.click(dialog.getByRole('button', { name: '保存' }));
 };
 
 export const Default: Story = {
@@ -96,8 +96,8 @@ export const Default: Story = {
   play: playOpen,
 };
 
-export const Success: Story = {
-  name: '成功',
+export const Filled: Story = {
+  name: 'すべて入力済み',
   play: async (args) => {
     await playOpen(args);
     await playFillAll(args);
@@ -149,7 +149,7 @@ export const EmptyValidation: Story = {
   },
 };
 
-export const InvalidDateValidation: Story = {
+export const InvalidBirthdayValidation: Story = {
   name: '誕生日に不正な日付を入力したときのバリデーションエラー',
   play: async (args) => {
     await playOpen(args);

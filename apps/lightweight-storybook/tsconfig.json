@@ -35,7 +35,8 @@
   },
   "include": [
     "src",
-    "@types/*"
+    "@types/*",
+    "vitest.setup.ts"
   ],
   "references": [
     {

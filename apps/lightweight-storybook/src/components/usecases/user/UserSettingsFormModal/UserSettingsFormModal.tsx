@@ -70,7 +70,7 @@ export function UserSettingsFormModal({
     <Dialog open={opened} onOpenChange={set}>
       <DialogTrigger asChild>
         <Button onClick={open} {...invokeButtonProps}>
-          ユーザ設定
+          設定する
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -79,10 +79,12 @@ export function UserSettingsFormModal({
         </DialogHeader>
         <div>
           {state.status === 'error' ? (
-            <Alert variant="destructive">
+            <Alert variant="destructive" aria-labelledby="error-alert-title" aria-describedby="error-alert-description">
               <AlertCircle className="h-4 w-4" />
-              <AlertTitle>ユーザ設定に失敗しました</AlertTitle>
-              {state.errorMessage ? <AlertDescription>{state.errorMessage}</AlertDescription> : null}
+              <AlertTitle id="error-alert-title">ユーザ設定に失敗しました</AlertTitle>
+              {state.errorMessage ? (
+                <AlertDescription id="error-alert-description">{state.errorMessage}</AlertDescription>
+              ) : null}
             </Alert>
           ) : null}
           <Suspense fallback={<div className="text-center">読み込み中...</div>}>
