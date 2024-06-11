@@ -79,7 +79,7 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
             name="birthday"
             render={({ fieldState: { error } }) => (
               <fieldset className="text-sm" aria-describedby="birthday-error-message">
-                <legend data-invalid={!!error?.root?.message} className="data-[invalid='true']:text-destructive">
+                <legend data-invalid={!!error} className="data-[invalid='true']:text-destructive">
                   生年月日
                 </legend>
                 <div className="flex gap-2 mt-2">
@@ -171,11 +171,17 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                     )}
                   />
                 </div>
-                {error?.root?.message ? (
-                  <p id="birthday-error-message" className="text-sm font-medium text-destructive mt-2">
-                    {error.root.message}
-                  </p>
-                ) : null}
+                {(() => {
+                  const birthdayError = error?.message ?? error?.root?.message;
+                  if (!birthdayError) {
+                    return null;
+                  }
+                  return (
+                    <p id="birthday-error-message" className="text-sm font-medium text-destructive mt-2">
+                      {birthdayError}
+                    </p>
+                  );
+                })()}
               </fieldset>
             )}
           />
