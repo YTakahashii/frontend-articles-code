@@ -55,6 +55,13 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    rules: {
+      '@typescript-eslint/only-throw-error': 'off', // Suspenseに対するローディング状態のモックで使用するためオフにする
+      '@typescript-eslint/no-non-null-assertion': 'off', // play関数で使用するためオフにする
+    },
+    files: ['**/*.stories.tsx'],
+  },
   eslintConfigPrettier,
   {
     plugins: {

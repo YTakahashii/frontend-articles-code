@@ -85,7 +85,7 @@ export function UserSettingsFormModal({
               {state.errorMessage ? <AlertDescription>{state.errorMessage}</AlertDescription> : null}
             </Alert>
           ) : null}
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div className="text-center">読み込み中...</div>}>
             {userSettingsForm.type === 'container' ? (
               <userSettingsForm.Component onValid={handleValid} />
             ) : (

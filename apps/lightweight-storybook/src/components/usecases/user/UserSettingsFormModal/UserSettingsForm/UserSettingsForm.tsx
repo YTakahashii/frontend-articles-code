@@ -77,22 +77,30 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
           <FormField
             control={form.control}
             name="birthday"
-            render={() => (
-              <FormItem>
-                <FormLabel>生年月日</FormLabel>
-                <div className="flex gap-2">
+            render={({ fieldState: { error } }) => (
+              <fieldset className="text-sm" aria-describedby="birthday-error-message">
+                <legend data-invalid={!!error?.root?.message} className="data-[invalid='true']:text-destructive">
+                  生年月日
+                </legend>
+                <div className="flex gap-2 mt-2">
                   <FormField
                     control={form.control}
                     name="birthday.year"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            void form.trigger('birthday');
+                          }}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger aria-label="年">
                               <SelectValue placeholder="年" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
+                          <SelectContent aria-label="年">
                             {yearOptions.map((option) => (
                               <SelectItem key={option.value} value={option.value}>
                                 {option.label}
@@ -109,13 +117,19 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                     name="birthday.month"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            void form.trigger('birthday');
+                          }}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger aria-label="月">
                               <SelectValue placeholder="月" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
+                          <SelectContent aria-label="月">
                             {monthOptions.map((option) => (
                               <SelectItem key={option.value} value={option.value}>
                                 {option.label}
@@ -132,13 +146,19 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                     name="birthday.day"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            void form.trigger('birthday');
+                          }}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger aria-label="日">
                               <SelectValue placeholder="日" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
+                          <SelectContent aria-label="日">
                             {dayOptions.map((option) => (
                               <SelectItem key={option.value} value={option.value}>
                                 {option.label}
@@ -151,8 +171,12 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                     )}
                   />
                 </div>
-                <FormMessage />
-              </FormItem>
+                {error?.root?.message ? (
+                  <p id="birthday-error-message" className="text-sm font-medium text-destructive mt-2">
+                    {error.root.message}
+                  </p>
+                ) : null}
+              </fieldset>
             )}
           />
         </div>
