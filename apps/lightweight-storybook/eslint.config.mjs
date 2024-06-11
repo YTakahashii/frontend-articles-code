@@ -33,6 +33,8 @@ export default tseslint.config(
       'postcss.config.js',
       'storybook-static/*',
       'tailwind.config.js',
+      'vitest.config.ts',
+      'vitest.setup.ts',
     ],
   },
   eslint.configs.recommended,

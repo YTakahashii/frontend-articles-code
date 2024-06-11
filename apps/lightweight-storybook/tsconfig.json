@@ -28,7 +28,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true
+    "exactOptionalPropertyTypes": true,
+    "types": [
+      "vitest/globals"
+    ]
   },
   "include": [
     "src",
@@ -38,5 +41,5 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ]
+  ],
 }
