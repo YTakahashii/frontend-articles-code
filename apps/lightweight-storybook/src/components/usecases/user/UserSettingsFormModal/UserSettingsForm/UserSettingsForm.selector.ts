@@ -1,4 +1,4 @@
-import { UpdateUserRequest, User } from '../../../../../boudary/api/generated';
+import { UpdateUserRequest, User } from '@/boudary/api/generated';
 import { type UserSettingsForm, userSettingsFormDefault } from './UserSettingsForm.schema';
 
 export function selectUserSettingsForm(user: User): UserSettingsForm {

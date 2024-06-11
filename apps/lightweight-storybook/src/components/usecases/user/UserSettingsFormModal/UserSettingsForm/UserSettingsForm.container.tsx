@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { UserSettingsForm as Presenter, type UserSettingsFormProps as PresenterProps } from './UserSettingsForm';
-import { useUpdateUserMutation, userQueries } from '../../../../../queries/user';
+import { useUpdateUserMutation, userQueries } from '@/queries/user';
 import { selectUpdateUserRequest, selectUserSettingsForm } from './UserSettingsForm.selector';
 import { useCallback } from 'react';
 import { useUserSettingsFormModalContainerContext } from '../UserSettingsFormModal.container.context';
