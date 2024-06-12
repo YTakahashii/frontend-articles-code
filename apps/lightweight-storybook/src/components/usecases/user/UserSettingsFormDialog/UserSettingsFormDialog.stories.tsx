@@ -101,7 +101,6 @@ export const Filled: Story = {
   play: async (args) => {
     await playOpen(args);
     await playFillAll(args);
-    await playSubmit(args);
   },
 };
 

@@ -1,10 +1,26 @@
 import { render, waitFor, screen, fireEvent, within } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import * as stories from './UserSettingsFormDialog.stories';
 import { composeStories } from '@storybook/react';
 
 const composedStories = composeStories(stories);
 
 describe('UserSettingsFormDialog', () => {
+  describe('保存に失敗する場合', () => {
+    const { Failed } = composedStories;
+    test('エラーメッセージが表示されること', async () => {
+      const { container, getByRole } = render(<Failed />);
+      await waitFor(async () => {
+        await Failed.play?.({ canvasElement: container });
+      });
+      const dialog = within(getByRole('dialog', { name: 'ユーザ設定' }));
+      await waitFor(() => {
+        expect(dialog.queryByRole('alert', { name: /ユーザ設定に失敗しました/ })).toBeInTheDocument();
+        const alert = dialog.getByRole('alert', { name: /ユーザ設定に失敗しました/ });
+        expect(alert).toHaveAccessibleDescription('処理がタイムアウトしました。');
+      });
+    });
+  });
   describe('すべて入力済みの場合', () => {
     const { Filled } = composedStories;
     test('保存するとモーダルが閉じること', async () => {
@@ -21,20 +37,42 @@ describe('UserSettingsFormDialog', () => {
         expect(queryByRole('dialog', { name: 'ユーザ設定' })).not.toBeInTheDocument();
       });
     });
-  });
-
-  describe('保存に失敗する場合', () => {
-    const { Failed } = composedStories;
-    test('エラーメッセージが表示されること', async () => {
-      const { container, getByRole } = render(<Failed />);
+    // memo: このテストを並列実行すると何故か未入力の場合のテストが失敗するので、concurrent: false にしている
+    test('閉じると入力が初期状態に戻ること', { concurrent: false }, async () => {
+      const { container, queryByRole, getByRole } = render(<Filled />);
       await waitFor(async () => {
-        await Failed.play?.({ canvasElement: container });
+        await Filled.play?.({ canvasElement: container });
+      });
+      await waitFor(() => {
+        expect(queryByRole('dialog', { name: 'ユーザ設定' })).toBeInTheDocument();
       });
       const dialog = within(getByRole('dialog', { name: 'ユーザ設定' }));
+      const closeButton = dialog.getByRole('button', { name: '閉じる' });
+      await userEvent.click(closeButton);
       await waitFor(() => {
-        expect(dialog.queryByRole('alert', { name: /ユーザ設定に失敗しました/ })).toBeInTheDocument();
-        const alert = dialog.getByRole('alert', { name: /ユーザ設定に失敗しました/ });
-        expect(alert).toHaveAccessibleDescription('処理がタイムアウトしました。');
+        expect(queryByRole('button', { name: '設定する' })).toBeInTheDocument();
+      });
+      await userEvent.click(getByRole('button', { name: '設定する' }));
+      await waitFor(() => {
+        expect(queryByRole('dialog', { name: 'ユーザ設定' })).toBeInTheDocument();
+      });
+      const dialogReopened = within(getByRole('dialog', { name: 'ユーザ設定' }));
+
+      const familyName = dialogReopened.getByLabelText('姓');
+      const givenName = dialogReopened.getByLabelText('名');
+      const email = dialogReopened.getByLabelText('メールアドレス');
+      const birthday = dialogReopened.getByRole('group', { name: '生年月日' });
+      const year = within(birthday).getByRole('combobox', { name: '年' });
+      const month = within(birthday).getByRole('combobox', { name: '月' });
+      const day = within(birthday).getByRole('combobox', { name: '日' });
+
+      await waitFor(() => {
+        expect(familyName).toHaveValue('');
+        expect(givenName).toHaveValue('');
+        expect(email).toHaveValue('');
+        expect(year).toHaveValue('');
+        expect(month).toHaveValue('');
+        expect(day).toHaveValue('');
       });
     });
   });
