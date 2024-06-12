@@ -11,7 +11,7 @@ import { useDisclosure } from '@/hooks/useDisclosure';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/Alert';
 import { AlertCircle } from 'lucide-react';
 
-export type UserSettingsFormModalProps = {
+export type UserSettingsFormDialogProps = {
   invokeButtonProps?: ButtonProps;
   userSettingsForm?:
     | {
@@ -25,23 +25,23 @@ export type UserSettingsFormModalProps = {
       };
 };
 
-type UserSettingsFormModalState = {
+type UserSettingsFormDialogState = {
   status: 'idle' | 'loading' | 'error';
   errorMessage: string | undefined;
 };
 
-const initialState: UserSettingsFormModalState = {
+const initialState: UserSettingsFormDialogState = {
   status: 'idle',
   errorMessage: undefined,
 };
 
-export function UserSettingsFormModal({
+export function UserSettingsFormDialog({
   invokeButtonProps,
   userSettingsForm = {
     type: 'container',
     Component: UserSettingsFormContainer,
   },
-}: UserSettingsFormModalProps) {
+}: UserSettingsFormDialogProps) {
   const [opened, { open, close, set }] = useDisclosure();
   const [state, setState] = useState(initialState);
 

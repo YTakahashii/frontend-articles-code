@@ -3,12 +3,12 @@ import { UserSettingsForm as Presenter, type UserSettingsFormProps as PresenterP
 import { useUpdateUserMutation, userQueries } from '@/queries/user';
 import { selectUpdateUserRequest, selectUserSettingsForm } from './UserSettingsForm.selector';
 import { useCallback } from 'react';
-import { useUserSettingsFormModalContainerContext } from '../UserSettingsFormModal.container.context';
+import { useUserSettingsFormDialogContainerContext } from '../UserSettingsFormDialog.container.context';
 
 export type UserSettingsFormProps = Pick<PresenterProps, 'onValid'>;
 
 export function UserSettingsForm({ onValid }: UserSettingsFormProps) {
-  const { userId } = useUserSettingsFormModalContainerContext();
+  const { userId } = useUserSettingsFormDialogContainerContext();
   const { data: initialValues } = useSuspenseQuery({
     ...userQueries.details({ userId }),
     select: selectUserSettingsForm,

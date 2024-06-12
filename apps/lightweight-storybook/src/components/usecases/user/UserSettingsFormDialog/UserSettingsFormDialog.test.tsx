@@ -1,10 +1,10 @@
 import { render, waitFor, screen, fireEvent, within } from '@testing-library/react';
-import * as stories from './UserSettingsFormModal.stories';
+import * as stories from './UserSettingsFormDialog.stories';
 import { composeStories } from '@storybook/react';
 
 const composedStories = composeStories(stories);
 
-describe('UserSettingsFormModal', () => {
+describe('UserSettingsFormDialog', () => {
   describe('すべて入力済みの場合', () => {
     const { Filled } = composedStories;
     test('保存するとモーダルが閉じること', async () => {

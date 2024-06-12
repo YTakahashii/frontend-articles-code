@@ -1,11 +1,11 @@
 import { type StoryObj, type Meta } from '@storybook/react';
 import { userEvent, within, fireEvent } from '@storybook/test';
-import { UserSettingsFormModal } from './UserSettingsFormModal';
+import { UserSettingsFormDialog } from './UserSettingsFormDialog';
 import { UserSettingsForm } from './UserSettingsForm/UserSettingsForm';
 
 const meta = {
-  title: 'useCases/user/UserSettingsFormModal',
-  component: UserSettingsFormModal,
+  title: 'useCases/user/UserSettingsFormDialog',
+  component: UserSettingsFormDialog,
   args: {
     userSettingsForm: {
       type: 'presenter',
@@ -25,11 +25,11 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof UserSettingsFormModal>;
+} satisfies Meta<typeof UserSettingsFormDialog>;
 
 export default meta;
 
-type Story = StoryObj<typeof UserSettingsFormModal>;
+type Story = StoryObj<typeof UserSettingsFormDialog>;
 
 const playOpen: Story['play'] = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
