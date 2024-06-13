@@ -2,7 +2,10 @@ import { Button, type ButtonProps } from '@/components/ui/Button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog';
 
 import { Suspense, useCallback, useState } from 'react';
-import { UserSettingsForm, UserSettingsFormProps } from './UserSettingsForm/UserSettingsForm';
+import {
+  UserSettingsForm as UserSettingsFormPresenter,
+  UserSettingsFormProps as UserSettingsFormPresenterProps,
+} from './UserSettingsForm/UserSettingsForm';
 import {
   UserSettingsForm as UserSettingsFormContainer,
   UserSettingsFormProps as UserSettingsFormContainerProps,
@@ -20,8 +23,8 @@ export type UserSettingsFormDialogProps = {
       }
     | {
         type: 'presenter';
-        props: Omit<UserSettingsFormProps, keyof UserSettingsFormContainerProps>;
-        Component: typeof UserSettingsForm;
+        props: Omit<UserSettingsFormPresenterProps, keyof UserSettingsFormContainerProps>;
+        Component: typeof UserSettingsFormPresenter;
       };
 };
 
@@ -45,7 +48,7 @@ export function UserSettingsFormDialog({
   const [opened, { open, close, set }] = useDisclosure();
   const [state, setState] = useState(initialState);
 
-  const handleValid: UserSettingsFormProps['onValid'] = useCallback(
+  const handleValid: UserSettingsFormPresenterProps['onValid'] = useCallback(
     async ({ values, updateUserSettings }) => {
       setState((prev) => ({
         ...prev,
