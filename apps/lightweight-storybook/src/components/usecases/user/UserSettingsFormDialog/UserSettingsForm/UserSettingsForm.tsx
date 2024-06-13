@@ -91,7 +91,9 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                         <Select
                           onValueChange={(value) => {
                             field.onChange(value);
-                            void form.trigger('birthday');
+                            if (form.formState.isSubmitted) {
+                              void form.trigger('birthday');
+                            }
                           }}
                           defaultValue={field.value}
                         >
@@ -120,7 +122,9 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                         <Select
                           onValueChange={(value) => {
                             field.onChange(value);
-                            void form.trigger('birthday');
+                            if (form.formState.isSubmitted) {
+                              void form.trigger('birthday');
+                            }
                           }}
                           defaultValue={field.value}
                         >
@@ -149,7 +153,9 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
                         <Select
                           onValueChange={(value) => {
                             field.onChange(value);
-                            void form.trigger('birthday');
+                            if (form.formState.isSubmitted) {
+                              void form.trigger('birthday');
+                            }
                           }}
                           defaultValue={field.value}
                         >
