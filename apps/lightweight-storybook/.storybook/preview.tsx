@@ -1,7 +1,5 @@
 import type { Preview } from '@storybook/react';
-import '@mantine/core/styles.css';
-import { MantineProvider } from '@mantine/core';
-import React from 'react';
+import '../src/styles.css';
 
 const preview: Preview = {
   parameters: {
@@ -12,13 +10,7 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <MantineProvider>
-        <Story />
-      </MantineProvider>
-    ),
-  ],
+  tags: ['autodocs'],
 };
 
 export default preview;

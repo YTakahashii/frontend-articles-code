@@ -3,6 +3,9 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import reactPlugin from 'eslint-plugin-react';
 import hooksPlugin from 'eslint-plugin-react-hooks';
+import { FlatCompat } from '@eslint/eslintrc';
+
+const compat = new FlatCompat();
 
 export default tseslint.config(
   {
@@ -27,7 +30,11 @@ export default tseslint.config(
       '.prettierrc.mjs',
       '.storybook/*',
       'vite.config.ts',
-      'postcss.config.cjs',
+      'postcss.config.js',
+      'storybook-static/*',
+      'tailwind.config.js',
+      'vitest.config.ts',
+      'vitest.setup.ts',
     ],
   },
   eslint.configs.recommended,
@@ -36,9 +43,26 @@ export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   {
     rules: {
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      '@typescript-eslint/consistent-type-definitions': ['off'],
       '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/no-misused-promises': [
+        'error',
+        {
+          checksVoidReturn: {
+            arguments: false,
+            attributes: false,
+            properties: false,
+          },
+        },
+      ],
     },
+  },
+  {
+    rules: {
+      '@typescript-eslint/only-throw-error': 'off', // Suspenseに対するローディング状態のモックで使用するためオフにする
+      '@typescript-eslint/no-non-null-assertion': 'off', // play関数で使用するためオフにする
+    },
+    files: ['**/*.stories.tsx'],
   },
   eslintConfigPrettier,
   {
@@ -48,6 +72,7 @@ export default tseslint.config(
     rules: {
       ...reactPlugin.configs.recommended.rules,
       ...reactPlugin.configs['jsx-runtime'].rules,
+      'react/prop-types': 'off',
     },
     settings: {
       react: {
@@ -61,4 +86,8 @@ export default tseslint.config(
     },
     rules: hooksPlugin.configs.recommended.rules,
   },
+  ...compat.config({
+    extends: ['plugin:storybook/recommended'],
+    ignorePatterns: ['!.stories.tsx'],
+  }),
 );
