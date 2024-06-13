@@ -16,16 +16,8 @@ import { AlertCircle } from 'lucide-react';
 
 export type UserSettingsFormDialogProps = {
   invokeButtonProps?: ButtonProps;
-  userSettingsForm?:
-    | {
-        type: 'container';
-        Component: typeof UserSettingsFormContainer;
-      }
-    | {
-        type: 'presenter';
-        props: Omit<UserSettingsFormPresenterProps, keyof UserSettingsFormContainerProps>;
-        Component: typeof UserSettingsFormPresenter;
-      };
+  UserSettingsForm?: typeof UserSettingsFormPresenter;
+  userSettingsFormProps?: StorybookProps<UserSettingsFormContainerProps, UserSettingsFormPresenterProps>;
 };
 
 type UserSettingsFormDialogState = {
@@ -40,10 +32,8 @@ const initialState: UserSettingsFormDialogState = {
 
 export function UserSettingsFormDialog({
   invokeButtonProps,
-  userSettingsForm = {
-    type: 'container',
-    Component: UserSettingsFormContainer,
-  },
+  UserSettingsForm = UserSettingsFormPresenter,
+  userSettingsFormProps,
 }: UserSettingsFormDialogProps) {
   const [opened, { open, close, set }] = useDisclosure();
   const [state, setState] = useState(initialState);
@@ -91,10 +81,10 @@ export function UserSettingsFormDialog({
             </Alert>
           ) : null}
           <Suspense fallback={<div className="text-center">読み込み中...</div>}>
-            {userSettingsForm.type === 'container' ? (
-              <userSettingsForm.Component onValid={handleValid} />
+            {userSettingsFormProps ? (
+              <UserSettingsForm {...userSettingsFormProps} onValid={handleValid} />
             ) : (
-              <userSettingsForm.Component {...userSettingsForm.props} onValid={handleValid} />
+              <UserSettingsFormContainer onValid={handleValid} />
             )}
           </Suspense>
         </div>

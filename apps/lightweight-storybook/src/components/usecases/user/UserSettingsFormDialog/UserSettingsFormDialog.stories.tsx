@@ -1,21 +1,16 @@
 import { type StoryObj, type Meta } from '@storybook/react';
 import { userEvent, within, fireEvent } from '@storybook/test';
 import { UserSettingsFormDialog } from './UserSettingsFormDialog';
-import { UserSettingsForm } from './UserSettingsForm/UserSettingsForm';
 
 const meta = {
   title: 'useCases/user/UserSettingsFormDialog',
   component: UserSettingsFormDialog,
   args: {
-    userSettingsForm: {
-      type: 'presenter',
-      props: {
-        updateUserSettings: async () => {
-          await new Promise((resolve) => setTimeout(resolve, 500));
-          return { success: true };
-        },
+    userSettingsFormProps: {
+      updateUserSettings: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return { success: true };
       },
-      Component: UserSettingsForm,
     },
   },
   parameters: {
@@ -107,14 +102,10 @@ export const Filled: Story = {
 export const Failed: Story = {
   name: '失敗',
   args: {
-    userSettingsForm: {
-      ...meta.args.userSettingsForm,
-      props: {
-        ...meta.args.userSettingsForm.props,
-        updateUserSettings: async () => {
-          await new Promise((resolve) => setTimeout(resolve, 500));
-          return { success: false, reason: '処理がタイムアウトしました。' };
-        },
+    userSettingsFormProps: {
+      updateUserSettings: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return { success: false, reason: '処理がタイムアウトしました。' };
       },
     },
   },
@@ -128,13 +119,10 @@ export const Failed: Story = {
 export const Loading: Story = {
   name: 'ローディング',
   args: {
-    userSettingsForm: {
-      ...meta.args.userSettingsForm,
-      Component: () => {
-        throw new Promise((resolve) => {
-          resolve(true);
-        });
-      },
+    UserSettingsForm: () => {
+      throw new Promise((resolve) => {
+        resolve(true);
+      });
     },
   },
   play: playOpen,

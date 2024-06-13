@@ -20,3 +20,8 @@ type MutateResultFailure<T = undefined> = undefined extends T
 type MutateResult<
   T extends MutateResultArg<Record<string, unknown> | undefined, Record<string, unknown> | undefined> = MutateResultArg,
 > = T extends MutateResultArg<infer S, infer F> ? MutateResultSuccess<S> | MutateResultFailure<F> : never;
+
+type StorybookProps<
+  ContainerProps extends Record<string, unknown>,
+  PresenterProps extends Record<string, unknown>,
+> = Omit<PresenterProps, keyof ContainerProps>;
