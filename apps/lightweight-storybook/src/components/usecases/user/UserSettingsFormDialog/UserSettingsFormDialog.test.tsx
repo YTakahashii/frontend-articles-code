@@ -1,4 +1,4 @@
-import { render, waitFor, screen, fireEvent, within } from '@testing-library/react';
+import { render, waitFor, fireEvent, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import * as stories from './UserSettingsFormDialog.stories';
 import { composeStories } from '@storybook/react';
@@ -24,14 +24,15 @@ describe('UserSettingsFormDialog', () => {
   describe('すべて入力済みの場合', () => {
     const { Filled } = composedStories;
     test('保存するとモーダルが閉じること', async () => {
-      const { container, queryByRole } = render(<Filled />);
+      const { container, queryByRole, getByRole } = render(<Filled />);
       await waitFor(async () => {
         await Filled.play?.({ canvasElement: container });
       });
       await waitFor(() => {
         expect(queryByRole('dialog', { name: 'ユーザ設定' })).toBeInTheDocument();
       });
-      const submitButton = screen.getByRole('button', { name: '保存' });
+      const dialog = within(getByRole('dialog', { name: 'ユーザ設定' }));
+      const submitButton = dialog.getByRole('button', { name: '保存' });
       fireEvent.click(submitButton); // userEvent.click を使うとonSubmitが呼ばれないのでfireEvent.clickを使っている ref. https://github.com/testing-library/user-event/issues/1032
       await waitFor(() => {
         expect(queryByRole('dialog', { name: 'ユーザ設定' })).not.toBeInTheDocument();
