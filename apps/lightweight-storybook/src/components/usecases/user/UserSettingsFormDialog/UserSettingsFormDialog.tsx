@@ -1,5 +1,13 @@
 import { Button, type ButtonProps } from '@/components/ui/Button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+  DialogFooter,
+} from '@/components/ui/Dialog';
 
 import { Suspense, useCallback, useState } from 'react';
 import {
@@ -88,6 +96,7 @@ export function UserSettingsFormDialog({
             )}
           </Suspense>
         </div>
+        <DialogClose disabled={state.status === 'loading'} />
       </DialogContent>
     </Dialog>
   );

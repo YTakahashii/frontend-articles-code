@@ -113,7 +113,7 @@ export const EmptyValidation: Story = {
 };
 
 export const InvalidBirthdayValidation: Story = {
-  name: '誕生日に不正な日付を入力したときのバリデーションエラー',
+  name: '生年月日に不正な日付を入力したとき',
   play: async (args) => {
     await playFillName(args);
     await playFillEmail(args);
