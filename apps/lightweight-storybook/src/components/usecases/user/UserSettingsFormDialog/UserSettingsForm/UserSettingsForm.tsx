@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
 import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { useDateSelectOptions } from '@/hooks/useDateSelectOptions';
-import { DialogFooter } from '@/components/ui/Dialog';
 
 export type UserSettingsFormProps = {
   initialValues?: UserSettingsForm;
@@ -193,14 +192,11 @@ export function UserSettingsForm({ initialValues, onValid, updateUserSettings }:
             )}
           />
         </div>
-        <DialogFooter>
-          <Button onClick={close} disabled={form.formState.isSubmitting}>
-            閉じる
-          </Button>
+        <div className="text-right">
           <Button type="submit" isLoading={form.formState.isSubmitting}>
             保存
           </Button>
-        </DialogFooter>
+        </div>
       </form>
     </Form>
   );

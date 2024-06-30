@@ -7,6 +7,12 @@ const meta = {
   component: UserSettingsFormDialog,
   args: {
     userSettingsFormProps: {
+      initialValues: {
+        familyName: '山田',
+        givenName: '太郎',
+        email: 'taro.yamada@example.com',
+        birthday: { year: '1996', month: '12', day: '09' },
+      },
       updateUserSettings: async () => {
         await new Promise((resolve) => setTimeout(resolve, 500));
         return { success: true };
