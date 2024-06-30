@@ -7,12 +7,6 @@ const meta = {
   component: UserSettingsFormDialog,
   args: {
     userSettingsFormProps: {
-      initialValues: {
-        familyName: '山田',
-        givenName: '太郎',
-        email: 'taro.yamada@example.com',
-        birthday: { year: '1996', month: '12', day: '09' },
-      },
       updateUserSettings: async () => {
         await new Promise((resolve) => setTimeout(resolve, 500));
         return { success: true };
@@ -95,6 +89,25 @@ const playSubmit: Story['play'] = async ({ canvasElement }) => {
 export const Default: Story = {
   name: '初期表示',
   play: playOpen,
+};
+
+export const Edit: Story = {
+  name: '編集状態',
+  args: {
+    userSettingsFormProps: {
+      ...meta.args.userSettingsFormProps,
+      initialValues: {
+        familyName: '山田',
+        givenName: '太郎',
+        email: 'taro.yamada@example.com',
+        birthday: { year: '1996', month: '11', day: '11' },
+      },
+    },
+  },
+  play: async (args) => {
+    await playOpen(args);
+    await playFillAll(args);
+  },
 };
 
 export const Filled: Story = {
