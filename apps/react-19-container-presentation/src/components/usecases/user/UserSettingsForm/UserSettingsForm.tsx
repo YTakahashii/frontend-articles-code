@@ -1,15 +1,16 @@
 import { type UserSettingsForm, userSettingsForm, userSettingsFormDefault } from './UserSettingsForm.schema';
 import { useForm } from 'react-hook-form';
 import { valibotResolver } from '@hookform/resolvers/valibot';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/Form';
-import { Input } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
-import { Select } from '@/components/ui/Select';
-import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Select } from '@/components/ui/select';
+import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useDateSelectOptions } from '@/hooks/useDateSelectOptions';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/Alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 import { useState, use } from 'react';
+import { type MutateResult } from '@/@types/utilities';
 
 export type UserSettingsFormProps = {
   initialValues?: Promise<UserSettingsForm>;
@@ -26,16 +27,7 @@ const initialState: UserSettingsFormState = {
   errorMessage: undefined,
 };
 
-export const UserSettingsForm = withSuspense(
-  Sentry.withErrorBoundary(_UserSettingsForm, {
-    fallback: <UserSettingsFormErrorFallback />,
-  }),
-  {
-    fallback: <UserSettingsFormLoading />,
-  },
-);
-
-function _UserSettingsForm({ initialValues, updateUserSettings }: UserSettingsFormProps) {
+export function UserSettingsForm({ initialValues, updateUserSettings }: UserSettingsFormProps) {
   const values = initialValues ? use(initialValues) : userSettingsFormDefault;
   const form = useForm<UserSettingsForm>({
     values,
@@ -240,9 +232,7 @@ function _UserSettingsForm({ initialValues, updateUserSettings }: UserSettingsFo
           />
         </div>
         <div className="flex flex-row-reverse">
-          <Button type="submit" isLoading={form.formState.isSubmitting}>
-            保存
-          </Button>
+          <Button type="submit">保存</Button>
         </div>
       </form>
     </Form>
