@@ -10,7 +10,6 @@ import { useDateSelectOptions } from '@/hooks/useDateSelectOptions';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/Alert';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 import { useState, use } from 'react';
-import { UserSettingsForm } from './UserSettingsForm.container';
 
 export type UserSettingsFormProps = {
   initialValues?: Promise<UserSettingsForm>;
