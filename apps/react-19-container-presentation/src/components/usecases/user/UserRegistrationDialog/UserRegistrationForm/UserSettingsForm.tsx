@@ -1,4 +1,4 @@
-import { type UserSettingsForm, userSettingsForm, userSettingsFormDefault } from './UserSettingsForm.schema';
+import { type UserSettingsFormSchema, userSettingsForm, userSettingsFormDefault } from './UserSettingsForm.schema';
 import { useForm } from 'react-hook-form';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -11,10 +11,11 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 import { useState, use } from 'react';
 import { type MutateResult } from '@/@types/utilities';
-
+import { withSuspense } from '@/lib/with-suspense';
+import { withErrorBoundary } from 'react-error-boundary';
 export type UserSettingsFormProps = {
-  initialValues?: Promise<UserSettingsForm>;
-  updateUserSettings: (values: UserSettingsForm) => Promise<MutateResult>;
+  initialValues?: Promise<UserSettingsFormSchema>;
+  updateUserSettings: (values: UserSettingsFormSchema) => Promise<MutateResult>;
 };
 
 type UserSettingsFormState = {
@@ -27,9 +28,18 @@ const initialState: UserSettingsFormState = {
   errorMessage: undefined,
 };
 
-export function UserSettingsForm({ initialValues, updateUserSettings }: UserSettingsFormProps) {
+export const UserSettingsForm = withErrorBoundary(
+  withSuspense(UserSettingsFormImpl, { fallback: <div>loading...</div> }),
+  {
+    fallbackRender: (props) => {
+      return <div>error... :{props.error}</div>;
+    },
+  },
+);
+
+function UserSettingsFormImpl({ initialValues, updateUserSettings }: UserSettingsFormProps) {
   const values = initialValues ? use(initialValues) : userSettingsFormDefault;
-  const form = useForm<UserSettingsForm>({
+  const form = useForm<UserSettingsFormSchema>({
     values,
     resolver: valibotResolver(userSettingsForm),
   });

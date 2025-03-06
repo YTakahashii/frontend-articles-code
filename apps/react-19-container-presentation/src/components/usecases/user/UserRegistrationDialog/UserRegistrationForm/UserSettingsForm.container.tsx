@@ -12,7 +12,6 @@ export function UserSettingsForm({ userId }: UserSettingsFormProps) {
   const { promise } = useQuery({
     ...userQueries.details({ userId }),
     select: selectUserSettingsForm,
-    experimental_prefetchInRender: true,
   });
   const { mutateAsync: updateUser } = useUpdateUserMutation({ userId });
 

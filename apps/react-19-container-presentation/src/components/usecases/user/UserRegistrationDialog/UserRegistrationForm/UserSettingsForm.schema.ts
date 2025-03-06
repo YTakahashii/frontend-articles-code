@@ -32,9 +32,9 @@ export const userSettingsForm = v.object({
   ),
 });
 
-export type UserSettingsForm = v.InferInput<typeof userSettingsForm>;
+export type UserSettingsFormSchema = v.InferInput<typeof userSettingsForm>;
 
-export const userSettingsFormDefault: UserSettingsForm = {
+export const userSettingsFormDefault: UserSettingsFormSchema = {
   givenName: '',
   familyName: '',
   birthday: {

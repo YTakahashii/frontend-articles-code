@@ -1,7 +1,7 @@
 import { UpdateUserRequest, User } from '@/boudary/api/generated';
-import { type UserSettingsForm, userSettingsFormDefault } from './UserSettingsForm.schema';
+import { type UserSettingsFormSchema, userSettingsFormDefault } from './UserSettingsForm.schema';
 
-export function selectUserSettingsForm(user: User): UserSettingsForm {
+export function selectUserSettingsForm(user: User): UserSettingsFormSchema {
   const [year, month, day] = user.birthday.split('-');
   const birthday = year && month && day ? { year: year, month: month, day: day } : userSettingsFormDefault.birthday;
 
@@ -18,7 +18,7 @@ export function selectUpdateUserRequest({
   email,
   familyName,
   givenName,
-}: UserSettingsForm): UpdateUserRequest {
+}: UserSettingsFormSchema): UpdateUserRequest {
   return {
     email,
     familyName,

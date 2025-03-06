@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { UserSettingsForm } from './components/usecases/user/UserSettingsForm';
+import { UserSettingsForm } from './components/usecases/user/UserRegistrationDialog/UserRegistrationForm';
 import { queryClient } from './lib/react-query';
 
 function App() {
